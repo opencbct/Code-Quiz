@@ -1,0 +1,409 @@
+:root {
+  --viewWidth: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+
+  /* border: 1px dotted blue; */
+}
+
+html {
+  font-size: 62.5%;
+}
+
+/* this is a flex contain that will center the panel for questions */
+body {
+  height: 100vh;
+  background: beige;
+  margin: 0;
+
+  font-family: "Scada", sans-serif;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+header {
+  /* this is visibility = hidden initially, so it keeps the positioning of the .openingPanel. Then it will display when the .openingPanel is hidden - controlled by JS. */
+  position: sticky;
+  top: 0;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  font-size: 2.4rem;
+  background: beige;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.sizeContainer {
+  min-width: var(--viewWidth);
+  max-width: 102rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  height: 6%;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0 auto;
+  max-width: 102rem;
+}
+
+/* common panel settings */
+.panel {
+  width: 100%;
+  background: beige;
+}
+
+/* common button settings */
+.button {
+  opacity: 0.8;
+  transition: 0.2s;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:active {
+  box-shadow: 0 0.5rem #666;
+  transform: translateY(0.2rem);
+}
+
+/* opening panel settings */
+.opening {
+  /* flex: 0 1 auto; */
+  padding: 1rem;
+  padding-bottom: 10rem;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+.opening p {
+  font-size: 1.5rem;
+}
+.start {
+  color: #c0c0c0;
+  /* background-color: red; */
+  background: linear-gradient(to bottom right, red, rgb(247 51 51));
+  box-shadow: 0.5rem 1rem 2rem rgb(247 124 124) inset,
+    0 0.8rem 1.6rem 0 rgba(0, 0, 0, 0.2), 0 0.6rem 2rem 0 rgba(0, 0, 0, 0.19);
+}
+
+.opening .start {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 8rem;
+  border-radius: 50%;
+  border: none;
+}
+
+.opening .viewHighScores {
+  font-size: 2.4rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.viewHighScores {
+  background: linear-gradient(
+    to bottom right,
+    rgb(26 162 26),
+    rgb(121 252 121)
+  );
+  box-shadow: 0.5rem 1rem 2rem rgb(121, 252, 121) inset,
+    0 0.8rem 1.6rem 0 rgba(0, 0, 0, 0.2), 0 0.6rem 2rem 0 rgba(0, 0, 0, 0.19);
+}
+
+.quiz,
+.endGame,
+.highScore {
+  display: none;
+}
+
+/* quiz panel settings */
+.quiz {
+  padding: 2rem;
+  font-size: 2.4rem;
+}
+
+.question,
+.answers {
+  background: whitesmoke;
+  border: 1px solid black;
+  padding: 1rem;
+
+  margin-bottom: 5rem;
+}
+
+.question {
+  display: flex;
+}
+
+#questionNum {
+  margin-right: 2rem;
+}
+
+#questionText,
+li {
+  /* added pre-wrap so that I can have line breaks in my questions/answers AND it will automatically wrap my text */
+  white-space: pre-wrap;
+  overflow-x: auto;
+  word-wrap: break-word;
+}
+
+.answers {
+  list-style-type: none;
+}
+
+.answers li {
+  background: linear-gradient(to bottom right, transparent, #80808044);
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.endGame {
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+
+  font-size: 2.4rem;
+}
+
+#gameOver {
+  font-size: 8rem;
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.endGame p {
+  text-align: center;
+}
+
+.gotHighScore {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.gotHighScore form {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.gotHighScore input {
+  width: 10rem;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+.submit {
+  margin: 1rem;
+  background: linear-gradient(to bottom right, red, orange);
+  box-shadow: 0.5rem 1rem 2rem yellow inset,
+    0 0.8rem 1.6rem 0 rgba(0, 0, 0, 0.2), 0 0.6rem 2rem 0 rgba(0, 0, 0, 0.19);
+}
+
+/* ToDo: make sticky so the buttons remain on the screen but the gotHighScore scrolls off */
+.keepHere {
+  width: var(--viewWidth);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0.5rem 4rem;
+}
+
+.highScore {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 2.4rem;
+}
+
+#tblHighScoreList {
+  min-width: 60%;
+  margin: 5rem 0;
+  border-collapse: collapse;
+  background: linear-gradient(to bottom right, whitesmoke, #80808022);
+}
+
+#tblHighScoreList table,
+#tblHighScoreList th,
+#tblHighScoreList td {
+  border: 1px solid black;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+#tblHighScoreList th {
+  font-weight: bold;
+}
+
+#highScoreStart {
+  margin-bottom: 1rem;
+}
+
+/**************
+This is taken from: 
+https://codemyui.com/glowing-flames-text-animation/
+Image: Glowing Flames Text Animation GIF
+Code by: Makan from Codepen
+***************/
+.fire {
+  /* margin: 50px auto; */
+  width: 80%;
+  /* max-width: 1000px; */
+  /* height: 200px; */
+
+  /* background-position: center center; */
+  /* background-size: 1000px 200px; */
+  /* border-radius: 10px; */
+  font-family: "Akronim";
+  /* overflow: hidden; */
+  text-align: center;
+  vertical-align: middle;
+}
+.fire:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.Blazing {
+  display: inline-block;
+  margin: 0;
+
+  color: rgb(255, 115, 0);
+  font-size: 6.3rem;
+  /* line-height: 50px; */
+  min-width: 50px;
+  outline: none;
+  vertical-align: middle;
+
+  text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange,
+    4px -5px 6px yellow, -4px -10px 10px yellow, 0 -10px 30px yellow;
+  animation: 2s Blazing infinite alternate linear;
+}
+
+@keyframes Blazing {
+  0% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow,
+      0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 3px 20px red, 0 0 30px red, 0 0 20px orange, 0 0 5px yellow,
+      -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow;
+  }
+  50% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange,
+      -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow,
+      2px -20px 30px rgba(255, 255, 0, 0.5);
+  }
+  75% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange,
+      3px -5px 5px yellow, -4px -10px 10px yellow,
+      2px -20px 30px rgba(255, 255, 0, 0.5), 0px -25px 40px rgba(255, 255, 0, 0);
+  }
+  100% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow,
+      0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+}
+
+/******** Media Queries **********/
+@media screen and (min-width: 321px) {
+  .Blazing {
+    font-size: 9rem;
+  }
+}
+@media screen and (min-width: 376px) {
+  .timer::after {
+    content: " remaining";
+  }
+}
+
+@media screen and (min-width: 426px) {
+  body {
+    background: whitesmoke;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 3% auto;
+  }
+
+  .opening {
+    padding: 10rem;
+  }
+
+  .keepHere {
+    flex-direction: row;
+  }
+
+  .fire {
+    height: 20rem;
+  }
+
+  .Blazing {
+    line-height: 5rem;
+    font-size: 15rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  :root {
+    --viewWidth: 60vw;
+  }
+
+  .panel {
+    border: 1px solid black;
+  }
+
+  .opening h1::before,
+  .opening h1::after {
+    content: "✨";
+  }
+}
+
+@media screen and (min-width: 102rem) {
+  :root {
+    --viewWidth: 102rem;
+  }
+}
